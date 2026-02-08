@@ -22,10 +22,10 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, activeView, setView, isAdmin = false }) => {
   const navItems = [
     { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard', restricted: false },
-    { id: 'upload', icon: Upload, label: 'Upload PDF', restricted: true },
+    { id: 'upload', icon: Upload, label: 'Upload PDF', restricted: false },
     { id: 'library', icon: Library, label: 'Question Bank', restricted: false },
     { id: 'quiz', icon: PlayCircle, label: 'Start Test', restricted: false },
-    { id: 'analyze', icon: Camera, label: 'Analyze Photo', restricted: true },
+    { id: 'analyze', icon: Camera, label: 'Analyze Photo', restricted: false },
   ];
 
   const visibleNavItems = navItems.filter(item => !item.restricted || isAdmin);

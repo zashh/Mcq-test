@@ -227,15 +227,13 @@ const App: React.FC = () => {
                 You've tackled <span className="text-indigo-600 font-bold">{stats.totalTests}</span> sessions so far. Ready to push your limits?
               </p>
             </div>
-            {isAdmin && (
-              <button 
-                onClick={() => setActiveView('upload')}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all shadow-xl shadow-slate-200"
-              >
-                <PlusCircle className="w-5 h-5 text-indigo-400" />
-                Upload New Data
-              </button>
-            )}
+            <button 
+              onClick={() => setActiveView('upload')}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all shadow-xl shadow-slate-200"
+            >
+              <PlusCircle className="w-5 h-5 text-indigo-400" />
+              Upload New Data
+            </button>
           </div>
 
           {/* Stats Grid */}
@@ -346,17 +344,15 @@ const App: React.FC = () => {
                     </div>
                     <h4 className="text-xl font-bold text-slate-800 mb-2">Your history is clear</h4>
                     <p className="text-slate-500 max-w-xs mx-auto text-sm leading-relaxed mb-8">
-                      {isAdmin ? 'Upload your first PDF or snap a photo to populate your bank.' : 'Once admin adds questions, they will appear here.'}
+                      Upload your first PDF or snap a photo to populate your bank.
                     </p>
-                    {isAdmin && (
-                      <button 
-                        onClick={() => setActiveView('upload')}
-                        className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-2xl font-black hover:bg-indigo-700 shadow-xl shadow-indigo-100 transition-all"
-                      >
-                        <PlusCircle className="w-5 h-5" />
-                        Add First Document
-                      </button>
-                    )}
+                    <button 
+                      onClick={() => setActiveView('upload')}
+                      className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 text-white rounded-2xl font-black hover:bg-indigo-700 shadow-xl shadow-indigo-100 transition-all"
+                    >
+                      <PlusCircle className="w-5 h-5" />
+                      Add First Document
+                    </button>
                   </div>
                 )}
               </div>
@@ -388,7 +384,7 @@ const App: React.FC = () => {
                   </button>
                   {questions.length === 0 && (
                     <p className="text-center mt-6 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
-                      {isAdmin ? 'Waiting for content upload' : 'Bank is currently empty'}
+                      Waiting for content upload
                     </p>
                   )}
                 </div>
@@ -420,14 +416,13 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Admin specific views restricted by Layout, but logic kept here */}
-      {isAdmin && activeView === 'upload' && (
+      {activeView === 'upload' && (
         <div className="animate-in fade-in zoom-in-95 duration-500">
           <PDFProcessor onQuestionsExtracted={handleQuestionsExtracted} />
         </div>
       )}
 
-      {isAdmin && activeView === 'analyze' && (
+      {activeView === 'analyze' && (
         <div className="animate-in fade-in zoom-in-95 duration-500">
           <AnalyzePhoto onQuestionCaptured={handleCaptureSingle} />
         </div>
@@ -531,17 +526,15 @@ const App: React.FC = () => {
                         >
                           {isRevealed ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                         </button>
-                        {isAdmin && (
-                          <button 
-                            onClick={() => {
-                              setQuestions(questions.filter(item => item.id !== q.id));
-                            }}
-                            className="p-3.5 bg-slate-50 text-slate-400 hover:bg-rose-50 hover:text-rose-600 border border-transparent hover:border-rose-100 rounded-2xl transition-all shadow-sm"
-                            title="Delete Question"
-                          >
-                            <Trash2 className="w-5 h-5" />
-                          </button>
-                        )}
+                        <button 
+                          onClick={() => {
+                            setQuestions(questions.filter(item => item.id !== q.id));
+                          }}
+                          className="p-3.5 bg-slate-50 text-slate-400 hover:bg-rose-50 hover:text-rose-600 border border-transparent hover:border-rose-100 rounded-2xl transition-all shadow-sm"
+                          title="Delete Question"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </button>
                       </div>
                     </div>
 
