@@ -82,23 +82,6 @@ const Layout: React.FC<LayoutProps> = ({ children, activeView, setView, isAdmin 
           })}
         </nav>
 
-        <div className="p-6">
-          <div className="relative overflow-hidden bg-slate-900 rounded-[2rem] p-6 text-white group cursor-default">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full -mr-10 -mt-10 blur-2xl group-hover:bg-indigo-500/20 transition-colors" />
-            <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-widest opacity-60">System Ready</span>
-              </div>
-              <p className="text-xs font-medium opacity-80 leading-relaxed mb-4">
-                Powered by <span className="font-bold text-white">Gemini 3 Flash</span> for real-time analysis & search.
-              </p>
-              <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                <div className="h-full w-3/4 bg-indigo-500 rounded-full" />
-              </div>
-            </div>
-          </div>
-        </div>
       </aside>
 
       {/* Main Content */}
