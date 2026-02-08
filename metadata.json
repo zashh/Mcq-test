@@ -1,0 +1,7 @@
+{
+  "name": "MCQ Mastery AI",
+  "description": "An intelligent platform to extract MCQs from PDFs, generate custom tests, and get deep AI explanations using Gemini 3's thinking capabilities.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
