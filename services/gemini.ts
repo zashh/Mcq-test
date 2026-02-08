@@ -2,9 +2,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Question } from "../types";
 
-const API_KEY = process.env.API_KEY || "";
-
-const getAI = () => new GoogleGenAI({ apiKey: API_KEY });
+// Always initialize client using new GoogleGenAI({apiKey: process.env.API_KEY})
+const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const extractMCQsFromDocument = async (base64Data: string, mimeType: string): Promise<Question[]> => {
   const ai = getAI();
@@ -95,7 +94,8 @@ export const searchFactsForQuestion = async (question: Question): Promise<{ text
 export const getFastExplanation = async (text: string): Promise<string> => {
   const ai = getAI();
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash-lite-latest",
+    // Using recommended model gemini-3-flash-preview for basic text tasks
+    model: "gemini-3-flash-preview",
     contents: `Explain this concept briefly and clearly: ${text}`
   });
   return response.text || "No explanation available.";
