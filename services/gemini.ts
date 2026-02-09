@@ -2,8 +2,15 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Question } from "../types";
 
-// Always initialize client using new GoogleGenAI({apiKey: process.env.API_KEY})
 const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
+
+const generateSlug = (text: string): string => {
+  return text
+    .toLowerCase()
+    .replace(/[^\w ]+/g, '')
+    .replace(/ +/g, '-')
+    .slice(0, 80);
+};
 
 export const extractMCQsFromDocument = async (base64Data: string, mimeType: string): Promise<Question[]> => {
   const ai = getAI();
@@ -46,9 +53,11 @@ export const extractMCQsFromDocument = async (base64Data: string, mimeType: stri
 
   try {
     const text = response.text;
-    return JSON.parse(text || "[]").map((q: any, idx: number) => ({
+    const questions = JSON.parse(text || "[]");
+    return questions.map((q: any, idx: number) => ({
       ...q,
-      id: `q-${Date.now()}-${idx}`
+      id: `q-${Date.now()}-${idx}`,
+      slug: generateSlug(q.question) + '-' + Math.random().toString(36).substr(2, 5)
     }));
   } catch (error) {
     console.error("Failed to parse AI response:", error);
@@ -91,16 +100,6 @@ export const searchFactsForQuestion = async (question: Question): Promise<{ text
   return { text, sources };
 };
 
-export const getFastExplanation = async (text: string): Promise<string> => {
-  const ai = getAI();
-  const response = await ai.models.generateContent({
-    // Using recommended model gemini-3-flash-preview for basic text tasks
-    model: "gemini-3-flash-preview",
-    contents: `Explain this concept briefly and clearly: ${text}`
-  });
-  return response.text || "No explanation available.";
-};
-
 export const analyzeImageQuestion = async (base64Data: string): Promise<Question | null> => {
   const ai = getAI();
   const response = await ai.models.generateContent({
@@ -114,7 +113,7 @@ export const analyzeImageQuestion = async (base64Data: string): Promise<Question
           }
         },
         {
-          text: "Analyze this image containing a question. Extract the question, options, identify the correct answer, and provide an explanation. If there are lists or matching columns, use newlines to format them vertically. Return in JSON format."
+          text: "Analyze this image containing a question. Extract the question, options, identify the correct answer, and provide an explanation. Return in JSON format."
         }
       ]
     },
@@ -135,7 +134,11 @@ export const analyzeImageQuestion = async (base64Data: string): Promise<Question
 
   try {
     const q = JSON.parse(response.text || "{}");
-    return { ...q, id: `img-q-${Date.now()}` };
+    return { 
+      ...q, 
+      id: `img-q-${Date.now()}`,
+      slug: generateSlug(q.question) + '-' + Math.random().toString(36).substr(2, 5)
+    };
   } catch {
     return null;
   }

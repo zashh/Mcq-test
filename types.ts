@@ -1,6 +1,7 @@
 
 export interface Question {
   id: string;
+  slug: string;
   question: string;
   options: string[];
   correctAnswerIndex: number;
@@ -20,7 +21,7 @@ export interface QuizAttempt {
   answers: Record<string, number>; // questionId -> selectedIndex
 }
 
-export type AppView = 'dashboard' | 'upload' | 'library' | 'quiz' | 'results' | 'analyze' | 'review';
+export type AppView = 'dashboard' | 'upload' | 'library' | 'quiz' | 'results' | 'analyze' | 'review' | 'question-detail';
 
 export interface AIResponse {
   questions?: Question[];

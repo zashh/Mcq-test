@@ -66,7 +66,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeView, setView, isAdmin 
                 className={`w-full group flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-200 ${
                   isActive 
                     ? 'bg-indigo-50 text-indigo-700 shadow-[0_4px_12px_rgba(79,70,229,0.08)]' 
-                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-800'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -82,10 +82,13 @@ const Layout: React.FC<LayoutProps> = ({ children, activeView, setView, isAdmin 
           })}
         </nav>
 
+        <div className="p-6">
+          {/* AI Status card removed per user request */}
+        </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto relative">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden relative">
         {/* Subtle background gradient blob */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-50/50 rounded-full blur-[100px] -mr-64 -mt-64 pointer-events-none" />
         <div className="max-w-7xl mx-auto p-10 relative z-10">
